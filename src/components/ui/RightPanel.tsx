@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useHomeStore } from '../../store/useHomeStore';
 import { DeviceControlPanel } from './DeviceControlPanel';
@@ -12,20 +12,17 @@ export function RightPanel() {
       {isPanelOpen && (
         <>
           {/* Backdrop blur overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               closePanel();
             }}
             className="fixed inset-0 cursor-pointer"
-            style={{ 
-              background: 'rgba(0,0,0,0.3)', 
+            style={{
+              background: 'rgba(0,0,0,0.3)',
               backdropFilter: 'blur(2px)',
-              zIndex: 45,
+              zIndex: 820,
               pointerEvents: 'auto',
             }}
           />
@@ -42,7 +39,7 @@ export function RightPanel() {
               background: 'linear-gradient(180deg, #0D0D20 0%, #0A0A1A 100%)',
               borderLeft: '1px solid #1E1E3A',
               backdropFilter: 'blur(20px)',
-              zIndex: 50,
+              zIndex: 850,
               pointerEvents: 'auto',
             }}
           >
@@ -57,23 +54,21 @@ export function RightPanel() {
                   {panelType === 'device' ? 'Device Control' : 'Room Control'}
                 </div>
               </div>
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
+              <button
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
                   closePanel();
                 }}
-                className="w-8 h-8 rounded-lg flex items-center justify-center transition-all cursor-pointer select-none"
-                style={{ background: '#1A1A35', border: '1px solid #2A2A4A', cursor: 'pointer' }}
+                className="w-8 h-8 rounded-lg flex items-center justify-center transition-all cursor-pointer select-none hover:scale-110 active:scale-90"
+                style={{ background: '#1A1A35', border: '1px solid #2A2A4A', cursor: 'pointer', pointerEvents: 'auto' }}
               >
                 <X size={16} style={{ color: '#AAAACC' }} />
-              </motion.button>
+              </button>
             </div>
 
             {/* Scrollable content */}
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 overflow-y-auto p-4" style={{ pointerEvents: 'auto' }}>
               {panelType === 'device' && selectedDevice && (
                 <DeviceControlPanel device={selectedDevice} />
               )}
