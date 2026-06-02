@@ -19,38 +19,43 @@ export function QuickControls() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.0, duration: 0.5 }}
       className="fixed bottom-6 right-6 flex flex-col gap-2"
-      style={{ zIndex: 30, pointerEvents: 'auto' }}
+      style={{ zIndex: 950, pointerEvents: 'auto' }}
     >
       {/* Overview/Reset camera */}
-      <motion.button
-        whileHover={{ scale: 1.1, x: -4 }}
-        whileTap={{ scale: 0.9 }}
+      <button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           setCameraTarget('overview');
         }}
         title="Overview — Reset camera"
-        className="flex items-center gap-2 px-3 py-2 rounded-xl font-semibold text-xs transition-all shadow-xl cursor-pointer select-none"
+        className="flex items-center gap-2 px-3 py-2 rounded-xl font-semibold text-xs transition-all shadow-xl cursor-pointer select-none hover:scale-105 active:scale-95"
         style={{
           background: '#1A1A35',
           border: '1px solid #2A2A4A',
           color: '#00BCD4',
           cursor: 'pointer',
+          pointerEvents: 'auto',
         }}
       >
         <Compass size={14} />
         Overview
-      </motion.button>
+      </button>
 
       {/* Room shortcuts */}
       {rooms.map((room) => {
         const activeCount = room.devices.filter((d) => d.isOn).length;
         return (
-          <motion.button
+          <button
             key={room.id}
-            whileHover={{ scale: 1.05, x: -4 }}
-            whileTap={{ scale: 0.9 }}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -58,12 +63,13 @@ export function QuickControls() {
               selectRoom(room);
             }}
             title={room.name}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs transition-all shadow-xl cursor-pointer select-none"
+            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs transition-all shadow-xl cursor-pointer select-none hover:scale-105 active:scale-95"
             style={{
               background: activeCount > 0 ? '#0A1520' : '#0E0E22',
               border: `1px solid ${activeCount > 0 ? '#1E3A4A' : '#1E1E3A'}`,
               color: activeCount > 0 ? '#FFFFFF' : '#888899',
               cursor: 'pointer',
+              pointerEvents: 'auto',
             }}
           >
             <span>{roomIcons[room.name] ?? '🏠'}</span>
@@ -74,7 +80,7 @@ export function QuickControls() {
                 {activeCount}
               </span>
             )}
-          </motion.button>
+          </button>
         );
       })}
     </motion.div>
