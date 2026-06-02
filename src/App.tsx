@@ -73,7 +73,7 @@ export default function App() {
                 bottom: 0,
                 display: 'flex',
                 zIndex: 10,
-                pointerEvents: 'auto',
+                pointerEvents: 'none',
               }}
             >
               {/* LeftSidebar */}
